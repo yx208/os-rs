@@ -3,4 +3,10 @@ build-std-features = ["compiler-builtins-mem"]
 build-std = ["core", "compiler_builtins"]
 
 [build]
-target = "x86_64-hero_os.json"
+# 指定 build 的 target 文件
+target = "x86_64-vm_os.json"
+
+[target.'cfg(target_os="none")']
+# runner 的值规定了运行 cargo run 使用的命令
+# 这个命令将在成功编译后执行，将使用 QEMU 运行
+runner = "bootimage runner"
