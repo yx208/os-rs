@@ -20,6 +20,7 @@ pub enum QemuExitCode {
     Failed = 0x11
 }
 
+/// 使用串口 IO 退出 QEMU
 pub fn exit_qemu(exit_code: QemuExitCode) {
     use x86_64::instructions::port::Port;
 
