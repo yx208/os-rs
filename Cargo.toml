@@ -8,9 +8,21 @@ bootloader = "0.9"
 volatile = "0.2"
 lazy_static = { version = "1", features = ["spin_no_std"] }
 spin = "0.10.0"
+x86_64 = "0.15.2"
+uart_16550 = "0.3.2"
 
 [profile.dev]
-panic = "abort"
+#panic = "abort"
 
 [profile.release]
-panic = "abort"
+#panic = "abort"
+
+[package.metadata.bootimage]
+# 运行测试案例会传递给 bootimage 的参数
+# 通过端口映射 IO 与设备通讯
+test-args = [
+    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", "-serial", "stdio",
+    "-display", "none"
+]
+test-success-exit-code = 33 # (0x10 << 1) | 1
+test-timeout = 120 # in seconds
